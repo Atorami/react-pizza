@@ -30,7 +30,7 @@ export const Home = () => {
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
         {isLoading
-          ? [...new Array(6)].map(() => <Skeleton></Skeleton>)
+          ? [...new Array(6)].map((val, i) => <Skeleton key={i}></Skeleton>)
           : items.map((val) => <PizzaBlock key={val.id} {...val} />)}
       </div>
     </>
