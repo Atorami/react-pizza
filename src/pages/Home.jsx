@@ -22,7 +22,7 @@ export const Home = () => {
   }, []);
 
   return (
-    <>
+    <div className="container">
       <div className="content__top">
         <Categories />
         <Sort />
@@ -33,7 +33,7 @@ export const Home = () => {
           ? [...new Array(6)].map((val, i) => <Skeleton key={i}></Skeleton>)
           : items.map((val) => <PizzaBlock key={val.id} {...val} />)}
       </div>
-    </>
+    </div>
   );
 };
 
