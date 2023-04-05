@@ -6,7 +6,7 @@ import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 
-export const Home = () => {
+export const Home = ({ searchValue }) => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [categoryId, setCategoryId] = useState(0);
@@ -14,6 +14,18 @@ export const Home = () => {
     name: "популярности",
     sortProperty: "rating",
   });
+
+  const pizzas = items
+    .filter((val) => {
+      if (val.title.toLowerCase().includes(searchValue.toLowerCase())) {
+        return true;
+      }
+      return false;
+    })
+    .map((val) => <PizzaBlock key={val.id} {...val} />);
+  const skeletons = [...new Array(6)].map((val, i) => (
+    <Skeleton key={i}></Skeleton>
+  ));
 
   useEffect(() => {
     setIsLoading(true);
@@ -43,11 +55,7 @@ export const Home = () => {
         <Sort value={sortType} onChangeSort={(i) => setSortType(i)} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">
-        {isLoading
-          ? [...new Array(6)].map((val, i) => <Skeleton key={i}></Skeleton>)
-          : items.map((val) => <PizzaBlock key={val.id} {...val} />)}
-      </div>
+      <div className="content__items">{isLoading ? skeletons : pizzas}</div>
     </div>
   );
 };
