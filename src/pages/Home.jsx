@@ -16,12 +16,12 @@ export const Home = ({ searchValue }) => {
   });
 
   const pizzas = items
-    .filter((val) => {
-      if (val.title.toLowerCase().includes(searchValue.toLowerCase())) {
-        return true;
-      }
-      return false;
-    })
+    // .filter((val) => {
+    //   if (val.title.toLowerCase().includes(searchValue.toLowerCase())) {
+    //     return true;
+    //   }
+    //   return false;
+    // })
     .map((val) => <PizzaBlock key={val.id} {...val} />);
   const skeletons = [...new Array(6)].map((val, i) => (
     <Skeleton key={i}></Skeleton>
@@ -31,9 +31,10 @@ export const Home = ({ searchValue }) => {
     setIsLoading(true);
 
     const category = categoryId > 0 ? `category=${categoryId}` : "";
+    const search = searchValue ? `&search=${searchValue}` : "";
 
     fetch(
-      `https://642955f15a40b82da4d0c96f.mockapi.io/items?${category}&sortBy=${sortType.sortProperty}&order=desc`
+      `https://642955f15a40b82da4d0c96f.mockapi.io/items?${category}&sortBy=${sortType.sortProperty}&order=desc${search}`
     )
       .then((res) => {
         return res.json();
@@ -43,7 +44,7 @@ export const Home = ({ searchValue }) => {
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [categoryId, sortType]);
+  }, [categoryId, sortType, searchValue]);
 
   return (
     <div className="container">
