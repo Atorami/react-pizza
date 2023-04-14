@@ -1,7 +1,7 @@
 import React from "react";
+import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
-import { useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 
 import Categories from "../components/Categories";
 import Sort from "../components/Sort";
@@ -37,14 +37,12 @@ export const Home = () => {
     const category = categoryId > 0 ? `category=${categoryId}` : "";
     const search = searchValue ? `&search=${searchValue}` : "";
 
-    fetch(
-      `https://642955f15a40b82da4d0c96f.mockapi.io/items?page=${currentPage}&limit=4${category}&sortBy=${sortType}&order=desc${search}`
-    )
+    axios
+      .get(
+        `https://642955f15a40b82da4d0c96f.mockapi.io/items?page=${currentPage}&limit=4${category}&sortBy=${sortType}&order=desc${search}`
+      )
       .then((res) => {
-        return res.json();
-      })
-      .then((arr) => {
-        setItems(arr);
+        setItems(res.data);
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
