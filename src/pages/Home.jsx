@@ -8,32 +8,25 @@ import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import Pagination from "../components/Pagination";
+
 import { searchContext } from "../App";
+import { setCategoryId } from "../redux/slices/filterSlice";
 
 export const Home = () => {
   const categoryId = useSelector((state) => state.filter.categoryId);
+  const sortType = useSelector((state) => state.filter.sort.sortProperty);
   const dispatch = useDispatch();
 
   const { searchValue } = useContext(searchContext);
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  // const [categoryId, setCategoryId] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [sortType, setSortType] = useState({
-    name: "популярности",
-    sortProperty: "rating",
-  });
 
-  const onChangeCategory = (id) => {};
+  const onChangeCategory = (id) => {
+    dispatch(setCategoryId(id));
+  };
 
-  const pizzas = items
-    // .filter((val) => {
-    //   if (val.title.toLowerCase().includes(searchValue.toLowerCase())) {
-    //     return true;
-    //   }
-    //   return false;
-    // })
-    .map((val) => <PizzaBlock key={val.id} {...val} />);
+  const pizzas = items.map((val) => <PizzaBlock key={val.id} {...val} />);
   const skeletons = [...new Array(6)].map((val, i) => (
     <Skeleton key={i}></Skeleton>
   ));
@@ -45,7 +38,7 @@ export const Home = () => {
     const search = searchValue ? `&search=${searchValue}` : "";
 
     fetch(
-      `https://642955f15a40b82da4d0c96f.mockapi.io/items?page=${currentPage}&limit=4${category}&sortBy=${sortType.sortProperty}&order=desc${search}`
+      `https://642955f15a40b82da4d0c96f.mockapi.io/items?page=${currentPage}&limit=4${category}&sortBy=${sortType}&order=desc${search}`
     )
       .then((res) => {
         return res.json();
@@ -64,7 +57,7 @@ export const Home = () => {
           value={categoryId}
           onChangeCategory={(i) => onChangeCategory(i)}
         />
-        <Sort value={sortType} onChangeSort={(i) => setSortType(i)} />
+        <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{isLoading ? skeletons : pizzas}</div>
