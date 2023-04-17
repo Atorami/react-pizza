@@ -10,20 +10,24 @@ import Skeleton from "../components/PizzaBlock/Skeleton";
 import Pagination from "../components/Pagination";
 
 import { searchContext } from "../App";
-import { setCategoryId } from "../redux/slices/filterSlice";
+import { setCategoryId, setCurrentPage } from "../redux/slices/filterSlice";
 
 export const Home = () => {
   const categoryId = useSelector((state) => state.filter.categoryId);
   const sortType = useSelector((state) => state.filter.sort.sortProperty);
+  const currentPage = useSelector((state) => state.filter.currentPage);
   const dispatch = useDispatch();
 
   const { searchValue } = useContext(searchContext);
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
 
   const onChangeCategory = (id) => {
     dispatch(setCategoryId(id));
+  };
+
+  const onChangePage = (num) => {
+    dispatch(setCurrentPage(num));
   };
 
   const pizzas = items.map((val) => <PizzaBlock key={val.id} {...val} />);
@@ -61,7 +65,8 @@ export const Home = () => {
       <div className="content__items">{isLoading ? skeletons : pizzas}</div>
 
       <Pagination
-        onChangePage={(number) => setCurrentPage(number)}
+        currentPage={currentPage}
+        onChangePage={onChangePage}
       ></Pagination>
     </div>
   );

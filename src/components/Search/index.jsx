@@ -5,18 +5,19 @@ import styles from "./Search.module.scss";
 
 const Search = () => {
   const [value, setValue] = useState("");
-  const { searchValue, setSearchValue } = useContext(searchContext);
+  const { setSearchValue } = useContext(searchContext);
   const inputRef = useRef();
 
   const onClickClear = () => {
     setSearchValue("");
+    setValue("");
     inputRef.current.focus();
   };
 
   const updateSearchValue = useCallback(
     debounce((str) => {
       setSearchValue(str);
-    }, 1000),
+    }, 250),
     []
   );
 
