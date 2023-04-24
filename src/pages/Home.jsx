@@ -1,5 +1,7 @@
 import React from "react";
 import axios from "axios";
+import qs from "qs";
+
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState, useContext } from "react";
 
@@ -29,6 +31,14 @@ export const Home = () => {
   const onChangePage = (num) => {
     dispatch(setCurrentPage(num));
   };
+
+  useEffect(() => {
+    const queryString = qs.stringify({
+      sortProperty: sort.sortProperty,
+      categoryId,
+      currentPage,
+    });
+  }, [categoryId, sortType, searchValue, currentPage]);
 
   const pizzas = items.map((val) => <PizzaBlock key={val.id} {...val} />);
   const skeletons = [...new Array(6)].map((val, i) => (
