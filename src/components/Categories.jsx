@@ -1,12 +1,5 @@
 function Categories({ value, onChangeCategory }) {
-  const categories = [
-    "Все",
-    "Мясные",
-    "Вегетарианская",
-    "Гриль",
-    "Острые",
-    "Закрытые",
-  ];
+  const categories = ["All", "Meat", "Vege", "Grill", "Spicy", "Closed"];
 
   return (
     <div className="categories">

@@ -9,9 +9,9 @@ function Sort() {
 
   const [open, setOpen] = useState(false);
   const list = [
-    { name: "популярности", sortProperty: "rating" },
-    { name: "цене", sortProperty: "price" },
-    { name: "алфавиту", sortProperty: "title" },
+    { name: "rating", sortProperty: "rating" },
+    { name: "price", sortProperty: "price" },
+    { name: "alphabetic", sortProperty: "title" },
   ];
 
   const onClickListItem = (i) => {
@@ -34,7 +34,7 @@ function Sort() {
             fill="#2C2C2C"
           />
         </svg>
-        <b>Сортировка по:</b>
+        <b>Sort by:</b>
         <span onClick={() => setOpen(!open)}>{sort.name}</span>
       </div>
       {open && (
