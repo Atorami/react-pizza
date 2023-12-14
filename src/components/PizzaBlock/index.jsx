@@ -1,11 +1,11 @@
 import { useState } from "react";
 
 function PizzaBlock({ title, price, imageUrl, sizes, types }) {
-  // let [pizzaCount, setPizzaCount] = useState(0);
+  let [pizzaCount, setPizzaCount] = useState(0);
 
-  // const onClickAdd = () => {
-  //   setPizzaCount(pizzaCount++);
-  // };
+  const onClickAdd = () => {
+    setPizzaCount(pizzaCount++);
+  };
 
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);
@@ -44,7 +44,7 @@ function PizzaBlock({ title, price, imageUrl, sizes, types }) {
         <div className="pizza-block__bottom">
           <div className="pizza-block__price">{price}</div>
           <button
-            // onClick={onClickAdd}
+            onClick={onClickAdd}
             className="button button--outline button--add"
           >
             <svg
