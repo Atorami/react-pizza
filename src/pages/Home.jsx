@@ -14,15 +14,19 @@ import Pagination from "../components/Pagination";
 
 import { searchContext } from "../App";
 import {
-  getAllItems,
-  getItemsByCategory,
-  getItemsByPage,
-  getItemsBySearch,
-  getItemsBySortType,
+  useGetAllItemsQuery,
+  useGetItemsByCategoryQuery,
+  useGetItemsByPageQuery,
+  useGetItemsBySearchQuery,
+  useGetItemsBySortTypeQuery,
 } from "../redux/services/pizzas";
 import { setCategoryId, setCurrentPage } from "../redux/slices/filterSlice";
 
 export const Home = () => {
+  const { data: itemData } = useGetAllItemsQuery();
+
+  console.log(itemData);
+
   const navigate = useNavigate();
   const categoryId = useSelector((state) => state.filter.categoryId);
   const sortType = useSelector((state) => state.filter.sort.sortProperty);
@@ -80,9 +84,6 @@ export const Home = () => {
     navigate(`?${queryString}`);
   }, [categoryId, sortType, currentPage]);
 
-  const { data: itemData, error, someBoolVal } = useGetAllItems();
-
-  console.log(itemData);
   return (
     <div className="container">
       <div className="content__top">

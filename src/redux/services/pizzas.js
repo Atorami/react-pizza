@@ -6,9 +6,9 @@ export const pizzaAPI = createApi({
     baseUrl: "https://642955f15a40b82da4d0c96f.mockapi.io/items",
   }),
   endpoints: (builder) => ({
-    getAllItems: () => ({
-      query: () => "",
-    }),
+    getAllItems: () => {
+      builder.query({ query: () => "" });
+    },
     getItemsByPage: (currentPage) => `?page=${currentPage}`,
     getItemsByCategory: (category) => `&limit=4&${category}`,
     getItemsBySortType: (sortType) => `&sortBy=${sortType}`,
@@ -17,9 +17,9 @@ export const pizzaAPI = createApi({
 });
 
 export const {
-  getAllItems,
-  getItemsByPage,
-  getItemsByCategory,
-  getItemsBySortType,
-  getItemsBySearch,
+  useGetAllItemsQuery,
+  useGetItemsByPageQuery,
+  useGetItemsByCategoryQuery,
+  useGetItemsBySortTypeQuery,
+  useGetItemsBySearchQuery,
 } = pizzaAPI;
