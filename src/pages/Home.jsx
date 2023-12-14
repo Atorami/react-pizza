@@ -55,7 +55,7 @@ export const Home = () => {
 
     axios
       .get(
-        `https://642955f15a40b82da4d0c96f.mockapi.io/items?page=${currentPage}&limit=4${category}&sortBy=${sortType}&order=desc${search}`
+        `https://642955f15a40b82da4d0c96f.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortType}&order=desc${search}`
       )
       .then((res) => {
         setItems(res.data);
